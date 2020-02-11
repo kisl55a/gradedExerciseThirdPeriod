@@ -26,5 +26,23 @@ module.exports = {
     addNewUser: (user) => {
         usersData.push(user)
         return user
+    },
+
+    changeUser: (user) => {
+        console.log('user: ', user);
+        let result = null;
+        usersData.forEach((element, i) => {
+            if (element.id == user.id) {
+              usersData[i] = { 
+                  id: user.id,
+                  ...user
+                }
+                console.log('usersData[i]: ', usersData[i]);
+                result = usersData[i] ;
+                
+            } 
+        });
+        return result;
+        
     }
   }
