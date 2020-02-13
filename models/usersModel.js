@@ -39,7 +39,6 @@ module.exports = {
                 }
                 console.log('usersData[i]: ', usersData[i]);
                 result = usersData[i] ;
-                
             } 
         });
         return result;

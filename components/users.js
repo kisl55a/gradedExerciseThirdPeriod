@@ -11,7 +11,7 @@ const validators = require('../middlwares/validators')
 
 router.get('/', (req, res, next) => { res.send(users.getAllUsers()) })
 
-router.post('/', validators.checkTheInputUserData, (req, res, next) => {
+router.post('/', validators.checkTheInputUserDataLogin, (req, res, next) => {
   let hashedPassword = passwordHash.generate(req.body.password);
   let length = users.getAllUsers().length
   let response = users.addNewUser({
@@ -21,7 +21,6 @@ router.post('/', validators.checkTheInputUserData, (req, res, next) => {
   })
   res.status(201)
   res.send(response);
-
 })
 
 router.post('/login',
@@ -44,19 +43,31 @@ router.post('/login',
   })
 
 router.put('/',
-  validators.checkTheInputUserData,
   jwtStrategy.authenticate('jwt', { session: false }),
+  validators.checkTheInputUserDataEdit,
   (req, res) => {
     let hashedPassword = passwordHash.generate(req.body.password);
-    let result = users.changeUser(
-      {
+    let editedUser = {}
+    if(req.body.username == req.user.username){
+      editedUser = {
         id: req.user.id,
         username: req.body.username,
         password: hashedPassword,
       }
-    )
-    res.send(result)
+      let result = users.changeUser(editedUser)
+      res.send(result)
+    } else if(!users.getUserByName(req.body.username)) {
+      editedUser = {
+        id: req.user.id,
+        username: req.body.username,
+        password: hashedPassword
+      }
+      let result = users.changeUser(editedUser)
+      res.send(result)
+    } else {
+      res.status(400).send("The username is taken already");
 
+    }
   })
 
 module.exports = router;
