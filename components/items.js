@@ -33,7 +33,7 @@ router.post('/',
             ...req.body,
             images
         }
-        res.send(items.addNewItem(newItem))
+        res.status(201).send(items.addNewItem(newItem))
     }
 )
 
@@ -62,8 +62,10 @@ router.put('/:id',
                 ...req.body,
             }
         }
-
+        if(items.changeItem(itemToEdit))
         res.send(items.changeItem(itemToEdit))
+        else 
+        res.status(400).send('No item with such an id')
     }
 );
 
@@ -78,7 +80,7 @@ router.delete('/:id',
     }
 )
 
-router.post('/search/:keyword?', (req, res) => {
+router.get('/search/:keyword?', (req, res) => {
     if(req.query.date){
         res.send(items.searchByDate(req.query.date))    
     }else if(req.query.category){

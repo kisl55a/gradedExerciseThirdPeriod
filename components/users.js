@@ -23,7 +23,7 @@ router.post('/', validators.checkTheInputUserDataLogin, (req, res, next) => {
   res.send(response);
 })
 
-router.post('/login',
+router.get('/login',
   basicStrategy.authenticate('basic', { session: false }),
   (req, res) => {
     const response = {
@@ -36,7 +36,7 @@ router.post('/login',
     };
 
     const options = {
-      expiresIn: '1w'
+      expiresIn: '36w'
     }
     const token = jwt.sign(payload, jwtSecretKey.secret, options);
     return res.json({ token });
