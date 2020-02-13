@@ -1,0 +1,923 @@
+{
+	"info": {
+		"_postman_id": "534d8e8e-5007-4c86-8be5-5543f12a7b0a",
+		"name": "GradedExerciseAPI",
+		"description": "Third period task which is a web application which primary function is to serve as a platform for selling and buying used items",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create new user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "63577c7c-4a7d-40bc-92dc-fdf3f6dfde36",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});",
+									" ",
+									"var schema = {",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"username\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"password\": {",
+									"      \"type\": \"string\"",
+									"    }",
+									"  },",
+									"  \"required\": [",
+									"    \"id\",",
+									"    \"username\",",
+									"    \"password\"",
+									"  ]",
+									"};",
+									"",
+									"pm.test('Schema of added user is valid', function() {",
+									"  var jsonData = pm.response.json();",
+									"  pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"NewTestUser\",\n    \"password\": \"test\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5dfc2a58-1f4a-45d5-bedc-d57a4276a56e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"}); ",
+									"var schema = {",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"token\": {",
+									"      \"type\": \"string\"",
+									"    }",
+									"  },",
+									"  \"required\": [",
+									"    \"token\"",
+									"  ]",
+									"}",
+									"",
+									"pm.test('User got the token', function() {",
+									"  var jsonData = pm.response.json();",
+									"  pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "Dmitrii",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\n        \"username\": \"test\",\n        \"password\": \"test\"\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users",
+								"login"
+							]
+						},
+						"description": "User gets the token "
+					},
+					"response": []
+				},
+				{
+					"name": "Change the user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7bb52859-5441-471b-b833-f0e0b4583f3c",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"}); ",
+									" ",
+									"var schema = {",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"username\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"password\": {",
+									"      \"type\": \"string\"",
+									"    }",
+									"  },",
+									"  \"required\": [",
+									"    \"id\",",
+									"    \"username\",",
+									"    \"password\"",
+									"  ]",
+									"}",
+									"",
+									"pm.test('User was changed successfully', function() {",
+									"  var jsonData = pm.response.json();",
+									"  pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6IkRtaXRyaWkifSwiaWF0IjoxNTgxNDUzMjAwLCJleHAiOjE1ODIwNTgwMDB9.jTFD504F8OaMF7YHAgSr1D5kCkkRGge6GqMslfH7ivM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\":\"Dmitrii\",\n\t\"password\":\"asdasdads\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Items",
+			"item": [
+				{
+					"name": "Get all items",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "edd5825b-99aa-42ea-a6de-95103198d5ad",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"}); ",
+									"var schema ={",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"array\",",
+									"  \"items\": {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"      \"id\": {",
+									"        \"type\": \"integer\"",
+									"      },",
+									"      \"idUser\": {",
+									"        \"type\": \"integer\"",
+									"      },",
+									"      \"title\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"description\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"location\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"category\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"images\": {",
+									"        \"type\": \"array\",",
+									"        \"items\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"additionalItems\": false",
+									"      },",
+									"      \"price\": {",
+									"        \"type\": [",
+									"          \"integer\",",
+									"          \"string\"",
+									"        ]",
+									"      },",
+									"      \"date\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"deliveryType\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"contacts\": {",
+									"        \"type\": \"string\"",
+									"      }",
+									"    },",
+									"    \"additionalProperties\": false,",
+									"    \"required\": [",
+									"      \"id\",",
+									"      \"idUser\",",
+									"      \"title\",",
+									"      \"description\",",
+									"      \"location\",",
+									"      \"category\",",
+									"      \"images\",",
+									"      \"price\",",
+									"      \"date\",",
+									"      \"deliveryType\",",
+									"      \"contacts\"",
+									"    ]",
+									"  },",
+									"  \"additionalItems\": false",
+									"}",
+									"pm.test('List of items was returned', function() {",
+									"  var jsonData = pm.response.json();",
+									"  pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6IkRtaXRyaWkifSwiaWF0IjoxNTgxNjEzNTkzLCJleHAiOjE2MDMzODYzOTN9.9dPVpFqeR9p5wOOFo_l5TjpwU26XhVQtiunW-pYq2bA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/items",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"items"
+							]
+						},
+						"description": "User gets all his items\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9018a214-7390-4ca7-b923-d34f76ed8c8e",
+								"exec": [
+									"",
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});",
+									"var schema = {",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"idUser\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"title\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"description\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"location\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"price\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"date\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"deliveryType\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"contacts\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"category\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"images\": {",
+									"      \"type\": \"array\",",
+									"      \"items\": {",
+									"        \"type\": \"string\"",
+									"      }",
+									"    }",
+									"  },",
+									"  \"required\": [",
+									"    \"id\",",
+									"    \"idUser\",",
+									"    \"title\",",
+									"    \"description\",",
+									"    \"location\",",
+									"    \"price\",",
+									"    \"date\",",
+									"    \"deliveryType\",",
+									"    \"contacts\",",
+									"    \"category\",",
+									"    \"images\"",
+									"  ]",
+									"}",
+									"pm.test('New item was created', function() {",
+									"  var jsonData = pm.response.json();",
+									"  pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6IkRtaXRyaWkifSwiaWF0IjoxNTgxNjEzNTkzLCJleHAiOjE2MDMzODYzOTN9.9dPVpFqeR9p5wOOFo_l5TjpwU26XhVQtiunW-pYq2bA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Test title",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "New description",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "Oulu",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": [
+										"/home/dmitrii/Pictures/Screenshot_20200211_105010.png",
+										"/home/dmitrii/Pictures/Screenshot_20200211_105239.png",
+										"/home/dmitrii/Pictures/Screenshot_20200211_105239-1.png"
+									]
+								},
+								{
+									"key": "price",
+									"value": "15",
+									"type": "text"
+								},
+								{
+									"key": "date",
+									"value": "19.02.2020",
+									"type": "text"
+								},
+								{
+									"key": "deliveryType",
+									"value": "shipping",
+									"type": "text"
+								},
+								{
+									"key": "contacts",
+									"value": "Dmitrii +8123131231",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "something",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4000/items",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change the item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "26917deb-d4e1-4c12-8f93-0ffb67bedc02",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"}); ",
+									"var schema = {",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"id\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"idUser\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"title\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"description\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"location\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"category\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"images\": {",
+									"      \"type\": \"array\",",
+									"      \"items\": {",
+									"        \"type\": \"string\"",
+									"      }",
+									"    },",
+									"    \"price\": {",
+									"      \"type\": \"integer\"",
+									"    },",
+									"    \"date\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"deliveryType\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"contacts\": {",
+									"      \"type\": \"string\"",
+									"    }",
+									"  },",
+									"  \"required\": [",
+									"    \"id\",",
+									"    \"idUser\",",
+									"    \"title\",",
+									"    \"description\",",
+									"    \"location\",",
+									"    \"category\",",
+									"    \"images\",",
+									"    \"price\",",
+									"    \"date\",",
+									"    \"deliveryType\",",
+									"    \"contacts\"",
+									"  ]",
+									"}",
+									"",
+									"pm.test('The item was changed successfully', function() {",
+									"  var jsonData = pm.response.json();",
+									"  pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6IkRtaXRyaWkifSwiaWF0IjoxNTgxNjEzNTkzLCJleHAiOjE2MDMzODYzOTN9.9dPVpFqeR9p5wOOFo_l5TjpwU26XhVQtiunW-pYq2bA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "images",
+									"type": "file",
+									"src": [
+										"/home/dmitrii/Pictures/Best-Pillow-Lap-Desk.jpg",
+										"/home/dmitrii/Pictures/glasses_case.jpg",
+										"/home/dmitrii/Pictures/Screenshot_20200211_105010.png",
+										"/home/dmitrii/Pictures/Screenshot_20200211_105239-1.png"
+									]
+								},
+								{
+									"key": "newFeature",
+									"value": "asdad",
+									"type": "text",
+									"disabled": true
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/items/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"items",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete the item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ae76dbed-186b-49dc-b344-b3344e98b1da",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"}); ",
+									"",
+									"var schema = {",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"array\",",
+									"  \"items\": {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"      \"id\": {",
+									"        \"type\": \"integer\"",
+									"      },",
+									"      \"idUser\": {",
+									"        \"type\": \"integer\",",
+									"        \"enum\": [",
+									"          1",
+									"        ]",
+									"      },",
+									"      \"title\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"category\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"description\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"location\": {",
+									"        \"type\": \"string\",",
+									"        \"enum\": [",
+									"          \"Oulu\"",
+									"        ]",
+									"      },",
+									"      \"images\": {",
+									"        \"type\": \"array\",",
+									"        \"items\": {",
+									"          \"type\": \"string\"",
+									"        }",
+									"      },",
+									"      \"price\": {",
+									"        \"type\": [",
+									"          \"integer\",",
+									"          \"string\"",
+									"        ]",
+									"      },",
+									"      \"date\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"deliveryType\": {",
+									"        \"type\": \"string\",",
+									"        \"enum\": [",
+									"          \"shipping\"",
+									"        ]",
+									"      },",
+									"      \"contacts\": {",
+									"        \"type\": \"string\"",
+									"      }",
+									"    },",
+									"    \"required\": [",
+									"      \"id\",",
+									"      \"idUser\",",
+									"      \"title\",",
+									"      \"category\",",
+									"      \"description\",",
+									"      \"location\",",
+									"      \"images\",",
+									"      \"price\",",
+									"      \"date\",",
+									"      \"deliveryType\",",
+									"      \"contacts\"",
+									"    ]",
+									"  }",
+									"}",
+									"pm.test('The item was deleted and the list of current items is shown', function() {",
+									"  var jsonData = pm.response.json();",
+									"  pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6IkRtaXRyaWkifSwiaWF0IjoxNTgxNDUzMjAwLCJleHAiOjE1ODIwNTgwMDB9.jTFD504F8OaMF7YHAgSr1D5kCkkRGge6GqMslfH7ivM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/items/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"items",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d6a9be62-d255-4163-b8e2-0606f10cf42e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"}); ",
+									"var schema = {",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"array\",",
+									"  \"items\": {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"      \"id\": {",
+									"        \"type\": \"integer\"",
+									"      },",
+									"      \"idUser\": {",
+									"        \"type\": \"integer\"",
+									"      },",
+									"      \"title\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"description\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"location\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"category\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"images\": {",
+									"        \"type\": \"array\",",
+									"        \"items\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"additionalItems\": false",
+									"      },",
+									"      \"price\": {",
+									"        \"type\": [",
+									"          \"integer\",",
+									"          \"string\"",
+									"        ]",
+									"      },",
+									"      \"date\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"deliveryType\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"contacts\": {",
+									"        \"type\": \"string\"",
+									"      }",
+									"    },",
+									"    \"additionalProperties\": false,",
+									"    \"required\": [",
+									"      \"id\",",
+									"      \"idUser\",",
+									"      \"title\",",
+									"      \"description\",",
+									"      \"location\",",
+									"      \"category\",",
+									"      \"images\",",
+									"      \"price\",",
+									"      \"date\",",
+									"      \"deliveryType\",",
+									"      \"contacts\"",
+									"    ]",
+									"  },",
+									"  \"additionalItems\": false",
+									"}",
+									"pm.test('Search query was succesfull', function() {",
+									"  var jsonData = pm.response.json();",
+									"  pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/items/search?location=Oulu",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"items",
+								"search"
+							],
+							"query": [
+								{
+									"key": "location",
+									"value": "Oulu"
+								}
+							]
+						},
+						"description": "Search by location. Also possible to search by date and category"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
