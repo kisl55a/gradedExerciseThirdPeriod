@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router();
 const items = require('../models/itemsModel');
+const validators = require('../middlwares/validators');
 const jwtStrategy = require('../middlwares/passportJWT');
 var multer = require('multer')
 var upload = multer({ dest: '../uploads/' })
@@ -16,7 +17,9 @@ router.get('/',
 router.post('/',
     jwtStrategy.authenticate('jwt', { session: false }),
     upload.array('images', 4),
+    validators.checkNewItem,
     (req, res) => {
+
         let images = []
         req.files.forEach((element, i) => {
             fs.rename(req.files[i].path, './uploads/' + req.files[i].originalname, function (err) {
@@ -38,7 +41,6 @@ router.put('/:id',
     jwtStrategy.authenticate('jwt', { session: false }),
     upload.array('images', 4),
     (req, res) => {
-        console.log(req.files);
         if (req.files !== undefined) {
             let images = []
             req.files.forEach((element, i) => {

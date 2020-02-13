@@ -6,27 +6,12 @@ const basicStrategy = require('../middlwares/passportBasic');
 const jwtStrategy = require('../middlwares/passportJWT');
 const jwt = require('jsonwebtoken');
 const jwtSecretKey = require('../secretKey.json');
+const validators = require('../middlwares/validators')
 
-
-
-
-
-function checkTheInputUserData(req, res, next) {
-  if (req.body.username
-    && req.body.password
-    && req.body.username.trim() !== ""
-    && req.body.password.trim() !== "")
-    next()
-  else {
-    res.status(400)
-    res.send('The credentials are wrong ')
-  }
-
-}
 
 router.get('/', (req, res, next) => { res.send(users.getAllUsers()) })
 
-router.post('/', checkTheInputUserData, (req, res, next) => {
+router.post('/', validators.checkTheInputUserData, (req, res, next) => {
   let hashedPassword = passwordHash.generate(req.body.password);
   let length = users.getAllUsers().length
   let response = users.addNewUser({
@@ -59,7 +44,7 @@ router.post('/login',
   })
 
 router.put('/',
-  checkTheInputUserData,
+  validators.checkTheInputUserData,
   jwtStrategy.authenticate('jwt', { session: false }),
   (req, res) => {
     let hashedPassword = passwordHash.generate(req.body.password);
