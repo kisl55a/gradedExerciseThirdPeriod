@@ -4,7 +4,7 @@ const items = require('../models/itemsModel');
 const validators = require('../middlwares/validators');
 const jwtStrategy = require('../middlwares/passportJWT');
 var multer = require('multer')
-var upload = multer({ dest: '../uploads/' })
+var upload = multer({ dest: '../tmp/uploads/' })
 fs = require('fs')
 
 router.get('/',
@@ -22,7 +22,7 @@ router.post('/',
 
         let images = []
         req.files.forEach((element, i) => {
-            fs.rename(req.files[i].path, './uploads/' + req.files[i].originalname, function (err) {
+            fs.rename(req.files[i].path, './tmp/uploads/' + req.files[i].originalname, function (err) {
                 if (err) throw err;
             });
             images.push(req.files[i].originalname)
@@ -44,7 +44,7 @@ router.put('/:id',
         if (req.files !== undefined) {
             let images = []
             req.files.forEach((element, i) => {
-                fs.rename(req.files[i].path, './uploads/' + req.files[i].originalname, function (err) {
+                fs.rename(req.files[i].path, './tmp/uploads/' + req.files[i].originalname, function (err) {
                     if (err) throw err;
                 });
                 images.push(req.files[i].originalname)
@@ -90,6 +90,16 @@ router.get('/search/:keyword?', (req, res) => {
     } else {
         res.status(400).send("Wrong search word");
     }
-
 })
+router.get('/:id',
+    jwtStrategy.authenticate('jwt', { session: false }),
+    (req, res) => {
+        if(items.getItemById(req.params.id))
+        res.send(items.getItemById(req.params.id))
+        else
+        res.status(406).send("No item with such id");
+
+    }
+)
+
 module.exports = router;

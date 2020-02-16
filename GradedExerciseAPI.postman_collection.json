@@ -123,9 +123,6 @@
 							}
 						}
 					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -151,15 +148,6 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "  {\n        \"username\": \"test\",\n        \"password\": \"test\"\n    }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "http://localhost:4000/users/login",
 							"protocol": "http",
@@ -368,14 +356,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:4000/items",
+							"raw": "http://localhost:4000/items/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "4000",
 							"path": [
-								"items"
+								"items",
+								""
 							]
 						},
 						"description": "User gets all his items\n"
@@ -891,6 +880,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6IkRtaXRyaWkifSwiaWF0IjoxNTgxNjEzNTkzLCJleHAiOjE2MDMzODYzOTN9.9dPVpFqeR9p5wOOFo_l5TjpwU26XhVQtiunW-pYq2bA",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -912,6 +911,50 @@
 							]
 						},
 						"description": "Search by location. Also possible to search by date and category"
+					},
+					"response": []
+				},
+				{
+					"name": "Get item by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b550f82c-dc92-4467-88d3-4d0560c7cdab",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6IkRtaXRyaWkifSwiaWF0IjoxNTgxNjEzNTkzLCJleHAiOjE2MDMzODYzOTN9.9dPVpFqeR9p5wOOFo_l5TjpwU26XhVQtiunW-pYq2bA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/items/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"items",
+								"1"
+							]
+						}
 					},
 					"response": []
 				}

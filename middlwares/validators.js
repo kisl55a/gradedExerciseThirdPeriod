@@ -37,7 +37,7 @@ module.exports = {
             next()
         }
         else if (users.getUserByName(req.body.username)) {
-            res.status(400)
+            res.status(406)
             res.send(`The username is taken already`)
         } else {
             res.status(400)
