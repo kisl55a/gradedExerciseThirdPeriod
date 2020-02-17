@@ -67,7 +67,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"NewTestUser\",\n    \"password\": \"test\"\n}",
+							"raw": "{\n    \"username\": \"test\",\n    \"password\": \"test\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -75,15 +75,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:4000/users/",
-							"protocol": "http",
+							"raw": "https://graded-exercise-kidm.herokuapp.com/users",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"graded-exercise-kidm",
+								"herokuapp",
+								"com"
 							],
-							"port": "4000",
 							"path": [
-								"users",
-								""
+								"users"
 							]
 						}
 					},
@@ -129,7 +129,7 @@
 							"basic": [
 								{
 									"key": "username",
-									"value": "Dmitrii",
+									"value": "test",
 									"type": "string"
 								},
 								{
@@ -149,12 +149,13 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:4000/users/login",
-							"protocol": "http",
+							"raw": "https://graded-exercise-kidm.herokuapp.com/users/login",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"graded-exercise-kidm",
+								"herokuapp",
+								"com"
 							],
-							"port": "4000",
 							"path": [
 								"users",
 								"login"
@@ -237,12 +238,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:4000/users/",
-							"protocol": "http",
+							"raw": "https://graded-exercise-kidm.herokuapp.com/users/",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"graded-exercise-kidm",
+								"herokuapp",
+								"com"
 							],
-							"port": "4000",
 							"path": [
 								"users",
 								""
@@ -257,6 +259,51 @@
 		{
 			"name": "Items",
 			"item": [
+				{
+					"name": "Get item by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b550f82c-dc92-4467-88d3-4d0560c7cdab",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6IkRtaXRyaWkifSwiaWF0IjoxNTgxNjEzNTkzLCJleHAiOjE2MDMzODYzOTN9.9dPVpFqeR9p5wOOFo_l5TjpwU26XhVQtiunW-pYq2bA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://graded-exercise-kidm.herokuapp.com/items/1",
+							"protocol": "https",
+							"host": [
+								"graded-exercise-kidm",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"items",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Get all items",
 					"event": [
@@ -356,12 +403,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:4000/items/",
-							"protocol": "http",
+							"raw": "https://graded-exercise-kidm.herokuapp.com/items/",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"graded-exercise-kidm",
+								"herokuapp",
+								"com"
 							],
-							"port": "4000",
 							"path": [
 								"items",
 								""
@@ -523,12 +571,13 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:4000/items",
-							"protocol": "http",
+							"raw": "https://graded-exercise-kidm.herokuapp.com/items",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"graded-exercise-kidm",
+								"herokuapp",
+								"com"
 							],
-							"port": "4000",
 							"path": [
 								"items"
 							]
@@ -660,12 +709,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:4000/items/1",
-							"protocol": "http",
+							"raw": "https://graded-exercise-kidm.herokuapp.com/items/1",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"graded-exercise-kidm",
+								"herokuapp",
+								"com"
 							],
-							"port": "4000",
 							"path": [
 								"items",
 								"1"
@@ -680,7 +730,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "ae76dbed-186b-49dc-b344-b3344e98b1da",
+								"id": "90ffe3a3-e740-49c1-a223-24982efcea4c",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -696,31 +746,26 @@
 									"        \"type\": \"integer\"",
 									"      },",
 									"      \"idUser\": {",
-									"        \"type\": \"integer\",",
-									"        \"enum\": [",
-									"          1",
-									"        ]",
+									"        \"type\": \"integer\"",
 									"      },",
 									"      \"title\": {",
-									"        \"type\": \"string\"",
-									"      },",
-									"      \"category\": {",
 									"        \"type\": \"string\"",
 									"      },",
 									"      \"description\": {",
 									"        \"type\": \"string\"",
 									"      },",
 									"      \"location\": {",
-									"        \"type\": \"string\",",
-									"        \"enum\": [",
-									"          \"Oulu\"",
-									"        ]",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"category\": {",
+									"        \"type\": \"string\"",
 									"      },",
 									"      \"images\": {",
 									"        \"type\": \"array\",",
 									"        \"items\": {",
 									"          \"type\": \"string\"",
-									"        }",
+									"        },",
+									"        \"additionalItems\": false",
 									"      },",
 									"      \"price\": {",
 									"        \"type\": [",
@@ -732,29 +777,28 @@
 									"        \"type\": \"string\"",
 									"      },",
 									"      \"deliveryType\": {",
-									"        \"type\": \"string\",",
-									"        \"enum\": [",
-									"          \"shipping\"",
-									"        ]",
+									"        \"type\": \"string\"",
 									"      },",
 									"      \"contacts\": {",
 									"        \"type\": \"string\"",
 									"      }",
 									"    },",
+									"    \"additionalProperties\": false,",
 									"    \"required\": [",
 									"      \"id\",",
 									"      \"idUser\",",
 									"      \"title\",",
-									"      \"category\",",
 									"      \"description\",",
 									"      \"location\",",
+									"      \"category\",",
 									"      \"images\",",
 									"      \"price\",",
 									"      \"date\",",
 									"      \"deliveryType\",",
 									"      \"contacts\"",
 									"    ]",
-									"  }",
+									"  },",
+									"  \"additionalItems\": false",
 									"}",
 									"pm.test('The item was deleted and the list of current items is shown', function() {",
 									"  var jsonData = pm.response.json();",
@@ -780,12 +824,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:4000/items/3",
-							"protocol": "http",
+							"raw": "https://graded-exercise-kidm.herokuapp.com/items/3",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"graded-exercise-kidm",
+								"herokuapp",
+								"com"
 							],
-							"port": "4000",
 							"path": [
 								"items",
 								"3"
@@ -795,7 +840,7 @@
 					"response": []
 				},
 				{
-					"name": "Search test",
+					"name": "Search by date",
 					"event": [
 						{
 							"listen": "test",
@@ -893,20 +938,21 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:4000/items/search?location=Oulu",
-							"protocol": "http",
+							"raw": "https://graded-exercise-kidm.herokuapp.com/items/searchByDate?date=19.07.2020",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"graded-exercise-kidm",
+								"herokuapp",
+								"com"
 							],
-							"port": "4000",
 							"path": [
 								"items",
-								"search"
+								"searchByDate"
 							],
 							"query": [
 								{
-									"key": "location",
-									"value": "Oulu"
+									"key": "date",
+									"value": "19.07.2020"
 								}
 							]
 						},
@@ -915,15 +961,84 @@
 					"response": []
 				},
 				{
-					"name": "Get item by ID",
+					"name": "Search by location",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "b550f82c-dc92-4467-88d3-4d0560c7cdab",
+								"id": "d6a9be62-d255-4163-b8e2-0606f10cf42e",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
+									"}); ",
+									"var schema = {",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"array\",",
+									"  \"items\": {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"      \"id\": {",
+									"        \"type\": \"integer\"",
+									"      },",
+									"      \"idUser\": {",
+									"        \"type\": \"integer\"",
+									"      },",
+									"      \"title\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"description\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"location\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"category\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"images\": {",
+									"        \"type\": \"array\",",
+									"        \"items\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"additionalItems\": false",
+									"      },",
+									"      \"price\": {",
+									"        \"type\": [",
+									"          \"integer\",",
+									"          \"string\"",
+									"        ]",
+									"      },",
+									"      \"date\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"deliveryType\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"contacts\": {",
+									"        \"type\": \"string\"",
+									"      }",
+									"    },",
+									"    \"additionalProperties\": false,",
+									"    \"required\": [",
+									"      \"id\",",
+									"      \"idUser\",",
+									"      \"title\",",
+									"      \"description\",",
+									"      \"location\",",
+									"      \"category\",",
+									"      \"images\",",
+									"      \"price\",",
+									"      \"date\",",
+									"      \"deliveryType\",",
+									"      \"contacts\"",
+									"    ]",
+									"  },",
+									"  \"additionalItems\": false",
+									"}",
+									"pm.test('Search query was succesfull', function() {",
+									"  var jsonData = pm.response.json();",
+									"  pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+									"",
 									"});"
 								],
 								"type": "text/javascript"
@@ -944,17 +1059,146 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:4000/items/1",
-							"protocol": "http",
+							"raw": "https://graded-exercise-kidm.herokuapp.com/items/searchByDate?date=19.07.2020",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"graded-exercise-kidm",
+								"herokuapp",
+								"com"
 							],
-							"port": "4000",
 							"path": [
 								"items",
-								"1"
+								"searchByDate"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "19.07.2020"
+								}
 							]
+						},
+						"description": "Search by location. Also possible to search by date and category"
+					},
+					"response": []
+				},
+				{
+					"name": "Search by category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d6a9be62-d255-4163-b8e2-0606f10cf42e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"}); ",
+									"var schema = {",
+									"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+									"  \"type\": \"array\",",
+									"  \"items\": {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"      \"id\": {",
+									"        \"type\": \"integer\"",
+									"      },",
+									"      \"idUser\": {",
+									"        \"type\": \"integer\"",
+									"      },",
+									"      \"title\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"description\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"location\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"category\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"images\": {",
+									"        \"type\": \"array\",",
+									"        \"items\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"additionalItems\": false",
+									"      },",
+									"      \"price\": {",
+									"        \"type\": [",
+									"          \"integer\",",
+									"          \"string\"",
+									"        ]",
+									"      },",
+									"      \"date\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"deliveryType\": {",
+									"        \"type\": \"string\"",
+									"      },",
+									"      \"contacts\": {",
+									"        \"type\": \"string\"",
+									"      }",
+									"    },",
+									"    \"additionalProperties\": false,",
+									"    \"required\": [",
+									"      \"id\",",
+									"      \"idUser\",",
+									"      \"title\",",
+									"      \"description\",",
+									"      \"location\",",
+									"      \"category\",",
+									"      \"images\",",
+									"      \"price\",",
+									"      \"date\",",
+									"      \"deliveryType\",",
+									"      \"contacts\"",
+									"    ]",
+									"  },",
+									"  \"additionalItems\": false",
+									"}",
+									"pm.test('Search query was succesfull', function() {",
+									"  var jsonData = pm.response.json();",
+									"  pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6IkRtaXRyaWkifSwiaWF0IjoxNTgxNjEzNTkzLCJleHAiOjE2MDMzODYzOTN9.9dPVpFqeR9p5wOOFo_l5TjpwU26XhVQtiunW-pYq2bA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://graded-exercise-kidm.herokuapp.com/items/searchByCategory?category=bikes",
+							"protocol": "https",
+							"host": [
+								"graded-exercise-kidm",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"items",
+								"searchByCategory"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "bikes"
+								}
+							]
+						},
+						"description": "Search by location. Also possible to search by date and category"
 					},
 					"response": []
 				}

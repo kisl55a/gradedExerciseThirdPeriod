@@ -80,17 +80,28 @@ router.delete('/:id',
     }
 )
 
-router.get('/search/:keyword?', (req, res) => {
-    if(req.query.date){
-        res.send(items.searchByDate(req.query.date))    
-    }else if(req.query.category){
-        res.send(items.searchByCategory(req.query.category))    
-    }else if(req.query.location){
+router.get('/searchByLocation:keyword?', (req, res) => {
+    if(req.query.location){
         res.send(items.searchByLocation(req.query.location))    
     } else {
-        res.status(400).send("Wrong search word");
+        res.status(406).send("Wrong search word");
     }
 })
+router.get('/searchByDate:keyword?', (req, res) => {
+    if(req.query.date){
+        res.send(items.searchByDate(req.query.date))    
+    } else {
+        res.status(406).send("Wrong search word");
+    }
+})
+router.get('/searchByCategory:keyword?', (req, res) => {
+    if(req.query.category){
+        res.send(items.searchByCategory(req.query.category))    
+    } else {
+        res.status(406).send("Wrong search word");
+    }
+})
+
 router.get('/:id',
     jwtStrategy.authenticate('jwt', { session: false }),
     (req, res) => {
