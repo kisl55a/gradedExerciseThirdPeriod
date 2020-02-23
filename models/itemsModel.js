@@ -2,39 +2,39 @@ let itemsData = [
     {
         id: 1,
         idUser: 1,
-        title: "Test title",
-        description: "Some description",
+        title: "Bike",
+        description: "Good bike, 24 gears, no winter tyres",
         location: "Oulu",
         category:"bikes",
-        images: ["tmp/uploads/i1.png", "tmp/uploads/i2.png"],
-        price: 15,
-        date: "19.07.2020",
+        images: ["./uploads/bike-kidm.jpg"],
+        price: 55,
+        date: "19.07.2019",
         deliveryType: "shipping",
         contacts: "Dmitrii +79226313400"
     },
     {
         id: 2,
         idUser: 2,
-        title: "Test title2",
-        description: "Some description",
-        category:"bikes",
+        title: "Guitar",
+        description: "Good guitar, 10 years old, sounds well",
+        category:"music",
         location: "Oulu",
-        images: ["tmp/uploads/i1.png", "tmp/uploads/i2.png"],
-        price: 15,
+        images: ["./uploads/guitar1.jpg", "./uploads/guitar2.jpeg"],
+        price: 110,
         date: "19.07.2020",
         deliveryType: "shipping",
-        contacts: "Dmitrii +79226313400"
+        contacts: "Nursultan +73123423100"
     },
     {
         id: 3,
         idUser: 1,
-        title: "Test title 3",
-        category:"autos",
-        description: "Some description",
+        title: "Chair",
+        category:"home",
+        description: "Moving out sale. Don't need it anymore",
         location: "Oulu",
-        images: ["tmp/uploads/i1.png", "tmp/uploads/i2.png"],
+        images: ["./uploads/chair.jpg"],
         price: 15,
-        date: "19.07.2021",
+        date: "19.01.2020",
         deliveryType: "shipping",
         contacts: "Dmitrii +79226313400"
     }
@@ -47,9 +47,14 @@ module.exports = {
 
     getAllItems: (idUser) => {
         let result = [];
-        itemsData.forEach(element => {
-            (idUser == element.idUser ? result.push(element) : null)
-        })
+        if(idUser !== -1){
+            itemsData.forEach(element => {
+                (idUser == element.idUser ? result.push(element) : null)
+            })
+        } else {
+            result = itemsData
+        }
+
         return result;
     },
     getNewItemId: () => {

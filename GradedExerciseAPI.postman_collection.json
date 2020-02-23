@@ -824,7 +824,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://graded-exercise-kidm.herokuapp.com/items/3",
+							"raw": "https://graded-exercise-kidm.herokuapp.com/items/4",
 							"protocol": "https",
 							"host": [
 								"graded-exercise-kidm",
@@ -833,7 +833,7 @@
 							],
 							"path": [
 								"items",
-								"3"
+								"4"
 							]
 						}
 					},

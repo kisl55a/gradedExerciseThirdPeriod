@@ -4,8 +4,14 @@ const items = require('../models/itemsModel');
 const validators = require('../middlwares/validators');
 const jwtStrategy = require('../middlwares/passportJWT');
 var multer = require('multer')
-var upload = multer({ dest: '../tmp/uploads/' })
+var upload = multer({ dest: '../public/uploads/' })
 fs = require('fs')
+
+router.get('/getAllItems',
+    (req, res) => {
+        res.send(items.getAllItems(-1))
+    }
+)
 
 router.get('/',
     jwtStrategy.authenticate('jwt', { session: false }),
@@ -22,10 +28,10 @@ router.post('/',
 
         let images = []
         req.files.forEach((element, i) => {
-            fs.rename(req.files[i].path, './tmp/uploads/' + req.files[i].originalname, function (err) {
+            fs.rename(req.files[i].path, './uploads/' + req.files[i].originalname, function (err) {
                 if (err) throw err;
             });
-            images.push(req.files[i].originalname)
+            images.push('./uploads/' + req.files[i].originalname)
         });
         let newItem = {
             id: items.getNewItemId(),
@@ -44,10 +50,10 @@ router.put('/:id',
         if (req.files !== undefined) {
             let images = []
             req.files.forEach((element, i) => {
-                fs.rename(req.files[i].path, './tmp/uploads/' + req.files[i].originalname, function (err) {
+                fs.rename(req.files[i].path, './uploads/' + req.files[i].originalname, function (err) {
                     if (err) throw err;
                 });
-                images.push(req.files[i].originalname)
+                images.push('./uploads/' + req.files[i].originalname)
             });
             itemToEdit = {
                 id: parseInt(req.params.id),
