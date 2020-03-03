@@ -1,6 +1,6 @@
 # gradedExerciseThirdPeriod
 a web application which primary function is to serve as a platform for selling and buying used items.<br>
-<b><h2>To start the application after "npm install" command you need to create secretKey.json file and add there {"secret" :"<whatever you want here>"} to make JWT work</h2> </b>
+<b><h2>To start the application after "npm install" command you need to create secretKey.json file and add there {"secret" :"SomeSuperSecretKeyHere"} to make JWT work</h2> </b>
 <hr>
 <p>The online version of this application stores uploaded pictures in online cloud service and gives you actual URLs of them, but the localhost version doesn't do it for security reasons.</p> <br>
   <p>If you want to understand the process of uploading images to the cloud contact me via What's app. </p>
