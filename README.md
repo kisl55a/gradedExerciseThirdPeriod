@@ -1,6 +1,6 @@
 # gradedExerciseThirdPeriod
 a web application which primary function is to serve as a platform for selling and buying used items.<br>
-<b>I added JWT key to my repository to make the process of assessing easier for you. I won't do it it real projects  </b>
+<b><h3>I added JWT key to my repository to make the process of assessing easier for you. I won't do it it real projects </h3> </b>
 <hr>
 <p>The online version of this application stores uploaded pictures in online cloud service and gives you actual URLs of them, but the localhost version doesn't do it for security reasons.</p> <br>
   <p>If you want to understand the process of uploading images to the cloud contact me via What's app. </p>
